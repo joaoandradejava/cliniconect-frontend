@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row">
+    <div class="col"><button [routerLink]="['/pessoas/pessoa-input']" class="btn btn-success">Cadastrar nova
+        Pessoa</button></div>
+  </div>
+  <div class="row">
+    <div class="col" *ngIf="!isTemPessoasNoSistema()">
+      <h2 class="text-center">Ainda não há pessoas cadastradas no sistema!</h2>
+    </div>
+    <div class="col" *ngIf="isTemPessoasNoSistema()">
+      <table>
+
+      </table>
+    </div>
+  </div>
+</div>

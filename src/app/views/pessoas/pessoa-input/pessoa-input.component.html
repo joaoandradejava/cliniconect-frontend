@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <a class="link-primary" [routerLink]="['/pessoas']">Voltar</a>
+      <h1 class="text-center">Pessoa</h1>
+      <form [formGroup]="formulario">
+        <div class="form-group">
+          <label for="nome">Nome</label>
+          <input type="text" formControlName="nome" placeholder="João Andrade" class="form-control" id="nome">
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="email">Email</label>
+            <input type="text" formControlName="email" placeholder="cliniconect@gmail.com" class="form-control"
+              id="email">
+          </div>
+          <div class="col">
+            <label for="cpf">Cpf</label>
+            <input type="text" formControlName="cpf" mask="000.000.000-00" placeholder="###.###.###-##"
+              class="form-control" id="cpf">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="sexo">Sexo</label>
+            <select formControlName="sexo" class="form-select" id="sexo">
+              <option value="MASCULINO">Masculino</option>
+              <option value="FEMININO">Feminino</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="dataNascimento">Data de Nascimento</label>
+            <input type="text"  formControlName="dataNascimento"
+              [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" placeholder="dd/MM/yyyy" bsDatepicker class="form-control"
+              id="dataNascimento">
+          </div>
+          <div class="col">
+            <label for="celular">Celular</label>
+            <input type="text" formControlName="celular" mask="(00) 0 0000-0000" placeholder="(99) 9 9999-9999"
+              class="form-control" id="celular">
+          </div>
+        </div>
+        <div class="espacamento-topo">
+          <button class="btn btn-danger">Cancelar</button>
+          <button class="btn btn-primary espacamento-esquerda" [disabled]="formulario.invalid">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
