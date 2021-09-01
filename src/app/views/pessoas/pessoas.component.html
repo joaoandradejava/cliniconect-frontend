@@ -8,9 +8,35 @@
       <h2 class="text-center">Ainda não há pessoas cadastradas no sistema!</h2>
     </div>
     <div class="col" *ngIf="isTemPessoasNoSistema()">
-      <table>
-
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="text-center">Código</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Cpf</th>
+            <th>Celular</th>
+            <th>Editar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pessoa of pessoaModelPage?.content">
+            <th class="text-center">{{pessoa.id}}</th>
+            <td>{{pessoa.nome}}</td>
+            <td>{{pessoa.email}}</td>
+            <td>{{pessoa.cpf | mask: '000.000.000-00'}}</td>
+            <td>{{pessoa.celular | mask: '(00) 0 0000-0000'}}</td>
+            <td><button class="btn btn-primary" [routerLink]="['/pessoas/pessoa-input/' + pessoa.id]">Editar</button>
+            </td>
+          </tr>
+        </tbody>
       </table>
+
+      <pagination [boundaryLinks]="true" (pageChanged)="pageChanged($event)"
+        [totalItems]="pessoaModelPage!.totalElements" previousText="&lsaquo;" [itemsPerPage]="tamanhoDaPagina"
+        nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+
+      </pagination>
     </div>
   </div>
 </div>

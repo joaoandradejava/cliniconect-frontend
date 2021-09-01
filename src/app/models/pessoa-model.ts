@@ -3,4 +3,5 @@ export interface PessoaModel{
   nome: string
   cpf: string
   celular: string
+  email: string
 }

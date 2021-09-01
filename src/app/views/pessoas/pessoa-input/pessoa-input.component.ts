@@ -1,5 +1,9 @@
+import { MensagemService } from './../../../services/mensagem.service';
+import { PessoaService } from './../../../services/pessoa.service';
+import { ValidadorFormulario } from './../../../utils/validador-formulario';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-pessoa-input',
@@ -9,8 +13,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class PessoaInputComponent implements OnInit {
 
   formulario: FormGroup
+  pessoaId: number = -1;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private pessoaService: PessoaService, private router: Router, private mensagemService: MensagemService) {
     this.formulario = formBuilder.group({
       "nome": ['', [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
       "email": ['', [Validators.required, Validators.minLength(1), Validators.maxLength(255), Validators.email]],
@@ -22,10 +27,69 @@ export class PessoaInputComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe(data => {
+      this.pessoaId = data.id
+    })
+
+    if (this.isEditar()) {
+      this.pessoaService.buscarPorId(this.pessoaId).subscribe(data => {
+        this.formulario.get('nome')?.setValue(data.nome)
+        this.formulario.get('email')?.setValue(data.email)
+        this.formulario.get('cpf')?.setValue(data.cpf)
+        this.formulario.get('sexo')?.setValue(data.sexo)
+        this.formulario.get('dataNascimento')?.setValue(data.dataNascimento)
+        this.formulario.get('celular')?.setValue(data.celular)
+
+      })
+    }
+  }
+
+  textoBotao(): string {
+    return this.isEditar() ? 'Editar' : 'Salvar'
+  }
+
+  private isEditar(): boolean {
+    return this.pessoaId > 0 ? true : false
   }
 
   cancelar(): void {
     this.formulario.reset()
+    this.formulario.get('sexo')?.setValue('MASCULINO')
   }
+
+  public pegarCssFormulario(label: string): any {
+    return ValidadorFormulario.pegarCssFormulario(this.formulario, label)
+  }
+
+  public campoObrigatorio(label: string): string {
+    return ValidadorFormulario.campoObrigatorio(label)
+  }
+
+  public campoInvalido(label: string): string {
+    return ValidadorFormulario.campoInvalido(label)
+  }
+
+  public campoTamanhoMaximoEMinimo(label: string, maximo: number, minimo: number): string {
+    return ValidadorFormulario.campoTamanhoMaximoEMinimo(label, maximo, minimo)
+  }
+
+  public salvar(): void {
+    if (this.formulario.invalid) {
+      return
+    }
+
+    if (!this.isEditar()) {
+      this.pessoaService.salvar(this.formulario.value).subscribe(data => {
+        this.router.navigate(['/pessoas/pessoa-input/' + data.id])
+        this.mensagemService.mostrarMensagemSucesso('Cadastro da pessoa realizado com sucesso!')
+      })
+    } else {
+      this.pessoaService.atualizar(this.formulario.value, this.pessoaId).subscribe(data => {
+        this.mensagemService.mostrarMensagemSucesso('Pessoa atualizada com sucesso!')
+
+      })
+    }
+  }
+
 
 }

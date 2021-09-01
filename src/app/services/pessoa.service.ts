@@ -14,7 +14,9 @@ export class PessoaService {
   public buscarTodos(pagina: number, tamanhoDaPagina: number): Observable<any> {
     return this.http.get(Backend.pessoas() + `?page=${pagina}&size=${tamanhoDaPagina}`)
   }
-
+  public buscarPorId(pessoaId: number): Observable<any> {
+    return this.http.get(Backend.pessoas() + `/${pessoaId}`)
+  }
   public salvar(pessoaInput: PessoaInput): Observable<any> {
     return this.http.post(Backend.pessoas(), pessoaInput)
   }
@@ -22,4 +24,6 @@ export class PessoaService {
   public atualizar(pessoaInput: PessoaInput, id: number): Observable<any> {
     return this.http.put(Backend.pessoas() + `/${id}`, pessoaInput)
   }
+
+
 }

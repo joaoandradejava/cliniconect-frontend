@@ -1,3 +1,4 @@
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -22,7 +23,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     NgxMaskModule.forRoot(),
-
+    PaginationModule.forRoot()
   ]
 })
 export class PessoasModule { }
