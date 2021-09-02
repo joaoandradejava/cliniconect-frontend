@@ -16,15 +16,15 @@ import { animate, keyframes, query, style, transition, trigger } from '@angular/
     trigger('lista-animacao', [
       transition(':enter', query('*', [
         animate('700ms 0s ease-in', keyframes([
-          style({opacity: 0, offset: 0}),
-          style({opacity: 1, offset: 1}),
+          style({ opacity: 0, offset: 0 }),
+          style({ opacity: 1, offset: 1 }),
         ]))
       ])),
 
       transition(':leave', query('*', [
         animate('200ms 0s ease-out', keyframes([
-          style({opacity: 1, offset: 0}),
-          style({opacity: 0, offset: 1}),
+          style({ opacity: 1, offset: 0 }),
+          style({ opacity: 0, offset: 1 }),
         ]))
       ]))
     ])
@@ -63,13 +63,11 @@ export class PessoasComponent implements OnInit {
     })
 
     this.formularioBusca.get('nome')?.valueChanges.pipe(debounceTime(1000)).subscribe(data => {
-      this.paginaAtual = 0
-      this.buscarTodos()
+      this.irParaPaginaInicialDaPaginacao()
     })
 
     this.formularioBusca.get('cpf')?.valueChanges.pipe(debounceTime(1000)).subscribe(data => {
-      this.paginaAtual = 0
-      this.buscarTodos()
+      this.irParaPaginaInicialDaPaginacao()
     })
   }
 
@@ -95,17 +93,25 @@ export class PessoasComponent implements OnInit {
     this.buscarTodos()
   }
 
-  openModal(template: TemplateRef<any>, pessoaId: number) {
+  abrirModal(template: TemplateRef<any>, pessoaId: number) {
     this.pessoaSelecionada = pessoaId
     this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
   }
 
+  private fecharModal(): void {
+    this.modalRef?.hide()
+  }
+
+  private irParaPaginaInicialDaPaginacao(): void {
+    this.paginaAtual = 0;
+    this.buscarTodos()
+  }
+
   deletar(): void {
     this.pessoaService.deletarPorId(this.pessoaSelecionada).subscribe(data => {
-      this.modalRef?.hide()
+      this.fecharModal()
       this.mensagemService.mostrarMensagemSucesso('Pessoa deletada com sucesso!')
-      this.paginaAtual = 0;
-      this.buscarTodos()
+      this.irParaPaginaInicialDaPaginacao()
     })
   }
 }

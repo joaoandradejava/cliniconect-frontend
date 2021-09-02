@@ -28,10 +28,10 @@
   </div>
   <div class="row">
     <div class="col" *ngIf="!isTemPessoasNoSistema()">
-      <h2 class="text-center">Ainda não há pessoas cadastradas no sistema!</h2>
+      <h2 class="text-center">Nenhum registro de pessoas no sistema!</h2>
     </div>
     <div class="col" *ngIf="isTemPessoasNoSistema()">
-      <table class="table table-dark">
+      <table class="table table-striped table-dark">
         <thead>
           <tr>
             <th class="text-center">Código</th>
@@ -51,18 +51,18 @@
             <td>{{pessoa.email}}</td>
             <td>{{pessoa.cpf | mask: '000.000.000-00'}}</td>
             <td>{{pessoa.celular | mask: '(00) 0 0000-0000'}}</td>
-            <td><a [routerLink]="['/pessoas/pessoa-input/' + pessoa.id]">
+            <td><a class="cor-botao-editar" [routerLink]="['/pessoas/pessoa-input/' + pessoa.id]">
                 <i-bs name="pencil-fill" width="20" height="20" class="centro">
                 </i-bs>
               </a>
             </td>
             <td>
-              <a class="cursor-link centro" style="color: red;" (click)="openModal(template, pessoa.id)">
+              <a class="cursor-link centro cor-botao-deletar"  (click)="abrirModal(template, pessoa.id)">
                 <i-bs name="trash-fill" width="20" height="20">
                 </i-bs>
               </a>
             </td>
-            <td><a class="centro" [routerLink]="['/pessoas/' + pessoa.id + '/enderecos']">
+            <td><a class="centro cor-botao-endereco" [routerLink]="['/pessoas/' + pessoa.id + '/enderecos']">
                 <i-bs name="geo-alt-fill" width="20" height="20">
                 </i-bs>
               </a></td>

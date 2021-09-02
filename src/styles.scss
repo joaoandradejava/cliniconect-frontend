@@ -6,35 +6,53 @@
 /* Importing Datepicker SCSS file. */
 @import "~ngx-bootstrap/datepicker/bs-datepicker";
 
-
-:root{
+:root {
   --cor-do-sucesso: #238636;
 }
 
-.espacamento-topo{
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  font-size: 17px;
+}
+
+.espacamento-topo {
   margin-top: 15px;
 }
 
-.espacamento-esquerda{
+.espacamento-esquerda {
   margin-left: 15px;
 }
 
-.espacamento-baixo{
+.espacamento-baixo {
   margin-bottom: 15px;
 }
 
-.cursor-link{
+.cursor-link {
   cursor: pointer;
 }
 
-.botao-sucesso{
-  background-color: var(--cor-do-sucesso);
-  color: white;
-  font-weight: bold;
+.cor-botao-editar {
+  color: rgb(232, 236, 0);
 }
 
-.botao-sucesso:hover{
-  background-color: #2aac44;
-  color: white;
+.cor-botao-editar:hover {
+  color: rgb(251, 255, 0);
+}
 
+.cor-botao-deletar {
+  color: rgb(224, 33, 33);
+}
+
+.cor-botao-deletar:hover {
+  color: rgb(248, 45, 45);
+}
+
+.cor-botao-endereco {
+  color: rgb(0, 86, 143);
+}
+
+.cor-botao-endereco:hover {
+  color: rgb(3, 113, 187);
 }
