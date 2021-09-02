@@ -1,3 +1,4 @@
+import { NgxPaginationModule } from 'ngx-pagination';
 import { SpinnerInterceptor } from './interceptors/spinner-interceptor';
 import { ErrorInterceptor } from './interceptors/erro-interceptor';
 import { NgModule } from '@angular/core';
@@ -30,7 +31,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     ToastrModule.forRoot(),
     PaginationModule.forRoot(),
     ModalModule.forRoot(),
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgxPaginationModule
 
   ],
   providers: [

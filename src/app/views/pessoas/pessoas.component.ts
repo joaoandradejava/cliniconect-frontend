@@ -36,7 +36,7 @@ export class PessoasComponent implements OnInit {
   modalRef?: BsModalRef;
 
   pessoaModelPage?: PessoaModelPage
-  tamanhoDaPagina: number = 10
+  tamanhoDaPagina: number = 5
   paginaAtual: number = 0
   pessoaSelecionada: number = -1;
 
@@ -63,10 +63,12 @@ export class PessoasComponent implements OnInit {
     })
 
     this.formularioBusca.get('nome')?.valueChanges.pipe(debounceTime(1000)).subscribe(data => {
+      this.paginaAtual = 0
       this.buscarTodos()
     })
 
     this.formularioBusca.get('cpf')?.valueChanges.pipe(debounceTime(1000)).subscribe(data => {
+      this.paginaAtual = 0
       this.buscarTodos()
     })
   }
@@ -102,7 +104,7 @@ export class PessoasComponent implements OnInit {
     this.pessoaService.deletarPorId(this.pessoaSelecionada).subscribe(data => {
       this.modalRef?.hide()
       this.mensagemService.mostrarMensagemSucesso('Pessoa deletada com sucesso!')
-      this.paginaAtual = 0
+      this.paginaAtual = 0;
       this.buscarTodos()
     })
   }

@@ -12,6 +12,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 import { EnderecosComponent } from './enderecos/enderecos.component';
 import { EnderecoInputComponent } from './endereco-input/endereco-input.component';
+import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
 
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
@@ -32,9 +33,10 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
     NgxMaskModule.forRoot(),
     PaginationModule.forRoot(),
     ModalModule.forRoot(),
-    NgxBootstrapIconsModule.pick(allIcons)
+    NgxBootstrapIconsModule.pick(allIcons),
+    NgxPaginationModule
 
   ],
-
+  exports: [NgxPaginationModule]
 })
 export class PessoasModule { }
