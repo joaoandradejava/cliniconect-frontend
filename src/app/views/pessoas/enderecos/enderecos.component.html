@@ -1,0 +1,64 @@
+<div class="container" [@lista-animacao]='estado'>
+  <div class="row espacamento-baixo">
+    <div class="col">
+      <a class="link-primary" [routerLink]="['/pessoas']">Voltar</a>
+      <h1 class="text-center">Endereços de {{pessoaFullModel?.nome}}</h1>
+    </div>
+  </div>
+  <div class="row espacamento-baixo">
+    <div class="col">
+      <button [routerLink]="['endereco-input']" routerLinkActive="router-link-active" class="btn botao-sucesso">
+        <i-bs name="plus-circle" width="20" height="20">
+        </i-bs> Adicionar
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col" *ngIf="!isPossuiEnderecos()">
+      <h4 class="text-center">Não possui endereços cadastrado no sistema</h4>
+    </div>
+    <div class="col" *ngIf="isPossuiEnderecos()">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Rua</th>
+            <th>Bairro</th>
+            <th>Numero</th>
+            <th>Cidade</th>
+            <th>Editar</th>
+            <th>Deletar</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let endereco of pessoaFullModel?.enderecos">
+            <td>{{endereco.id}}</td>
+            <td>{{endereco.rua}}</td>
+            <td>{{endereco.bairro}}</td>
+            <td>{{endereco.numero}}</td>
+            <td>{{endereco.cidade}}</td>
+            <td><a [routerLink]="['/pessoas/' + pessoaFullModel?.id + '/enderecos/endereco-input/' + endereco.id ]">
+                <i-bs name="pencil-fill" width="20" height="20" class="centro">
+                </i-bs>
+              </a>
+            </td>
+            <td><a class="cursor-link centro" style="color: red;" (click)="openModal(template, endereco.id)">
+                <i-bs name="trash-fill" width="20" height="20">
+                </i-bs>
+              </a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Tem certeza que deseja deletar este endereço?</p>
+    <button type="button" class="btn btn-danger" (click)="deletarEndereco()">Deletar</button>
+    <button type="button" class="btn btn-default" (click)="    modalRef?.hide();
+">Cancelar</button>
+  </div>
+</ng-template>

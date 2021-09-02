@@ -8,6 +8,11 @@ import { PessoaInputComponent } from './pessoa-input/pessoa-input.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgxMaskModule, IConfig } from 'ngx-mask'
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
+import { EnderecosComponent } from './enderecos/enderecos.component';
+import { EnderecoInputComponent } from './endereco-input/endereco-input.component';
+
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
@@ -15,7 +20,9 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 @NgModule({
   declarations: [
     PessoasComponent,
-    PessoaInputComponent
+    PessoaInputComponent,
+    EnderecosComponent,
+    EnderecoInputComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +30,11 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     NgxMaskModule.forRoot(),
-    PaginationModule.forRoot()
-  ]
+    PaginationModule.forRoot(),
+    ModalModule.forRoot(),
+    NgxBootstrapIconsModule.pick(allIcons)
+
+  ],
+
 })
 export class PessoasModule { }

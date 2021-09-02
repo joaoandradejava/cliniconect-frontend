@@ -11,8 +11,8 @@ export class PessoaService {
 
   constructor(private http: HttpClient) { }
 
-  public buscarTodos(pagina: number, tamanhoDaPagina: number): Observable<any> {
-    return this.http.get(Backend.pessoas() + `?page=${pagina}&size=${tamanhoDaPagina}`)
+  public buscarTodos(pagina: number, tamanhoDaPagina: number, nome: string, cpf: string): Observable<any> {
+    return this.http.get(Backend.pessoas() + `?page=${pagina}&size=${tamanhoDaPagina}&nome=${nome}&cpf=${cpf}`)
   }
   public buscarPorId(pessoaId: number): Observable<any> {
     return this.http.get(Backend.pessoas() + `/${pessoaId}`)
@@ -25,5 +25,8 @@ export class PessoaService {
     return this.http.put(Backend.pessoas() + `/${id}`, pessoaInput)
   }
 
+  public deletarPorId(id: number): Observable<any> {
+    return this.http.delete(Backend.pessoas() + `/${id}`)
+  }
 
 }

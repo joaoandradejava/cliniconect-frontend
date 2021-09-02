@@ -7,10 +7,34 @@
 @import "~ngx-bootstrap/datepicker/bs-datepicker";
 
 
+:root{
+  --cor-do-sucesso: #238636;
+}
+
 .espacamento-topo{
   margin-top: 15px;
 }
 
 .espacamento-esquerda{
   margin-left: 15px;
+}
+
+.espacamento-baixo{
+  margin-bottom: 15px;
+}
+
+.cursor-link{
+  cursor: pointer;
+}
+
+.botao-sucesso{
+  background-color: var(--cor-do-sucesso);
+  color: white;
+  font-weight: bold;
+}
+
+.botao-sucesso:hover{
+  background-color: #2aac44;
+  color: white;
+
 }

@@ -1,19 +1,42 @@
+import { PessoaInput } from './../../../models/pessoa-input';
 import { MensagemService } from './../../../services/mensagem.service';
 import { PessoaService } from './../../../services/pessoa.service';
 import { ValidadorFormulario } from './../../../utils/validador-formulario';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { animate, keyframes, query, style, transition, trigger } from '@angular/animations';
 @Component({
   selector: 'app-pessoa-input',
   templateUrl: './pessoa-input.component.html',
-  styleUrls: ['./pessoa-input.component.scss']
+  styleUrls: ['./pessoa-input.component.scss'],
+  animations: [
+    trigger('lista-animacao', [
+      transition(':enter', query('*', [
+        animate('630ms 0s ease-in', keyframes([
+          style({ opacity: .3, transform: 'translateX(-300px)', offset: 0 }),
+          style({ opacity: 1, transform: 'translateX(0)', offset: 1 }),
+
+        ]))
+      ])),
+
+      transition(':leave', query('*', [
+        animate('200ms 0s ease-out', keyframes([
+          style({ opacity: 1, transform: 'translateX(0)', offset: 0 }),
+          style({ opacity: 0, transform: 'translateX(300px)', offset: 1 }),
+
+        ]))
+      ]))
+    ])
+  ]
 })
 export class PessoaInputComponent implements OnInit {
+  estado: string = ''
 
   formulario: FormGroup
   pessoaId: number = -1;
+
+
 
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private pessoaService: PessoaService, private router: Router, private mensagemService: MensagemService) {
     this.formulario = formBuilder.group({
@@ -24,6 +47,7 @@ export class PessoaInputComponent implements OnInit {
       "dataNascimento": [new Date(), [Validators.required]],
       "celular": ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
     })
+
   }
 
   ngOnInit(): void {
@@ -37,9 +61,8 @@ export class PessoaInputComponent implements OnInit {
         this.formulario.get('email')?.setValue(data.email)
         this.formulario.get('cpf')?.setValue(data.cpf)
         this.formulario.get('sexo')?.setValue(data.sexo)
-        this.formulario.get('dataNascimento')?.setValue(data.dataNascimento)
+        this.formulario.get('dataNascimento')?.setValue(new Date(data.dataNascimento))
         this.formulario.get('celular')?.setValue(data.celular)
-
       })
     }
   }

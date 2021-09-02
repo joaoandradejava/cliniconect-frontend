@@ -1,14 +1,37 @@
-<div class="container">
-  <div class="row">
-    <div class="col"><button [routerLink]="['/pessoas/pessoa-input']" class="btn btn-success">Cadastrar nova
-        Pessoa</button></div>
+<div class="container" [@lista-animacao]='estado'>
+  <div class="row espacamento-baixo">
+    <div class="col"><button [routerLink]="['/pessoas/pessoa-input']" class="btn botao-sucesso">
+        <i-bs name="plus-circle" width="20" height="20">
+        </i-bs> Cadastrar nova
+        Pessoa
+      </button></div>
+
+    <div class="col">
+      <form [formGroup]="formularioBusca">
+        <div class="row">
+          <div class="col">
+            <input type="text" formControlName="nome" *ngIf="isBuscarPorNome()" placeholder="buscar por nome..."
+              class="form-control">
+            <input type="text" mask="000.000.000-00" formControlName="cpf" *ngIf="!isBuscarPorNome()"
+              placeholder="buscar por cpf..." class="form-control">
+
+          </div>
+          <div class="col">
+            <select formControlName="tipoDeBusca" class="form-select">
+              <option value="nome">Nome</option>
+              <option value="cpf">Cpf</option>
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
   <div class="row">
     <div class="col" *ngIf="!isTemPessoasNoSistema()">
       <h2 class="text-center">Ainda não há pessoas cadastradas no sistema!</h2>
     </div>
     <div class="col" *ngIf="isTemPessoasNoSistema()">
-      <table class="table">
+      <table class="table table-dark">
         <thead>
           <tr>
             <th class="text-center">Código</th>
@@ -17,6 +40,8 @@
             <th>Cpf</th>
             <th>Celular</th>
             <th>Editar</th>
+            <th>Deletar</th>
+            <th>Endereço</th>
           </tr>
         </thead>
         <tbody>
@@ -26,8 +51,21 @@
             <td>{{pessoa.email}}</td>
             <td>{{pessoa.cpf | mask: '000.000.000-00'}}</td>
             <td>{{pessoa.celular | mask: '(00) 0 0000-0000'}}</td>
-            <td><button class="btn btn-primary" [routerLink]="['/pessoas/pessoa-input/' + pessoa.id]">Editar</button>
+            <td><a [routerLink]="['/pessoas/pessoa-input/' + pessoa.id]">
+                <i-bs name="pencil-fill" width="20" height="20" class="centro">
+                </i-bs>
+              </a>
             </td>
+            <td>
+              <a class="cursor-link centro" style="color: red;" (click)="openModal(template, pessoa.id)">
+                <i-bs name="trash-fill" width="20" height="20">
+                </i-bs>
+              </a>
+            </td>
+            <td><a class="centro" [routerLink]="['/pessoas/' + pessoa.id + '/enderecos']">
+                <i-bs name="geo-alt-fill" width="20" height="20">
+                </i-bs>
+              </a></td>
           </tr>
         </tbody>
       </table>
@@ -40,3 +78,13 @@
     </div>
   </div>
 </div>
+
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Tem certeza que deseja deletar está pessoa?</p>
+    <button type="button" class="btn btn-danger" (click)="deletar()">Deletar</button>
+    <button type="button" class="btn btn-default" (click)="    modalRef?.hide();
+">Cancelar</button>
+  </div>
+</ng-template>

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [@lista-animacao]='estado'>
   <div class="row">
     <div class="col">
       <a class="link-primary" [routerLink]="['/pessoas']">Voltar</a>
@@ -64,7 +64,7 @@
           <div class="col">
             <label for="dataNascimento">Data de Nascimento</label>
             <input type="text" [ngClass]="pegarCssFormulario('dataNascimento')" formControlName="dataNascimento"
-              [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" placeholder="dd/MM/yyyy" bsDatepicker class="form-control"
+              [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', useUtc: true }" placeholder="dd/MM/yyyy" bsDatepicker class="form-control"
               id="dataNascimento">
 
             <div class="invalid-feedback" *ngIf="formulario.get('dataNascimento')?.getError('required')">
