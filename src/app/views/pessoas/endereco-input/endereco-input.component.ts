@@ -32,7 +32,6 @@ import { animate, keyframes, query, style, transition, trigger } from '@angular/
 export class EnderecoInputComponent implements OnInit {
   estado: string = ''
 
-  cepValido: boolean = false
 
   pessoaId: number = -1
   enderecoId: number = -1
@@ -76,9 +75,7 @@ export class EnderecoInputComponent implements OnInit {
         this.formulario.get('cidade')?.setValue(data.localidade)
         this.formulario.get('estado')?.setValue(data.uf)
 
-        this.cepValido = true
         if(data.erro == true){
-          this.cepValido = false
           this.mensagemService.mostrarMensagemAlerta('Cep inválido')
         }
       })

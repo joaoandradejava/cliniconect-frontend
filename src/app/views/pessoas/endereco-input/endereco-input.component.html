@@ -33,7 +33,7 @@
 
         <div class="espacamento-topo">
           <button class="btn btn-danger" (click)="cancelar()">Cancelar</button>
-          <button class="btn btn-success espacamento-esquerda" (click)="salvar()" [disabled]="formulario.invalid || !cepValido">{{isTextoBotao()}}</button>
+          <button class="btn btn-success espacamento-esquerda" (click)="salvar()" [disabled]="formulario.invalid">{{isTextoBotao()}}</button>
         </div>
       </form>
     </div>
